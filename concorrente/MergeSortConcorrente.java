@@ -1,10 +1,12 @@
 package concorrente;
 import leitor.Reader;
 import java.util.*;
+//import java.util.concurrent.ExecutorService;
+//import java.util.concurrent.Executors;
 public class MergeSortConcorrente extends Thread {
-    private int[] array;
-    private int start;
-    private int end;
+    private final int[] array;
+    private final int start;
+    private final int end;
 
     public MergeSortConcorrente(int[] array, int start, int end) {
         this.array = array;
@@ -27,7 +29,6 @@ public class MergeSortConcorrente extends Thread {
             sort.join();
             long limit = System.nanoTime();
             long duration = (limit - start);
-//            System.out.println(Arrays.toString(array));
             System.out.println("Tempo de execução: " + duration + " nano seconds");
 
         } catch (InterruptedException err) {
@@ -54,16 +55,14 @@ public class MergeSortConcorrente extends Thread {
         }
     }
 
-    void Merge(int array[], int start, int half, int end) {
+    void Merge(int[] array, int start, int half, int end) {
         int aux1 = half - start + 1;
         int aux2 = end - half;
 
-        int Left[] = new int [aux1];
-        int Right[] = new int [aux2];
+        int[] Left = new int [aux1];
+        int[] Right = new int [aux2];
 
-        for (int i = 0; i < aux1; i++) {
-            Left[i] = array[start + i];
-        }
+        System.arraycopy(array, start, Left, 0, aux1);
         for (int j = 0; j < aux2; j++) {
             Right[j] = array[half + 1 + j];
         }
