@@ -31,7 +31,7 @@ public class MergeSortConcorrente implements Runnable {
 
         MergeSortConcorrente sort = new MergeSortConcorrente(array, 0, size);
 
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+        ExecutorService executor = Executors.newCachedThreadPool();
         long start = System.nanoTime();
 
         executor.execute(sort);
@@ -46,7 +46,10 @@ public class MergeSortConcorrente implements Runnable {
             e.printStackTrace();
         }
 
-//        System.out.println(Arrays.toString(array));
+        System.out.println(Arrays.toString(array));
+        //Cached: 84578446
+        //Fixed: 87628623
+        //Stealing: 87925254
     }
 
     @Override
